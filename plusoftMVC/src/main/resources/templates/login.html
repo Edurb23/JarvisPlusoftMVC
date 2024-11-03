@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="text-center" style="width: 100%; max-width: 300px;">
+        <h1 style="font-family: 'Oldenburg', serif; margin-bottom: 30px;">DOWNTOWN</h1>
+        <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label" style="font-size: 0.9em;">Username</label>
+                <input type="text" id="username" name="username" class="form-control form-control-sm">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label" style="font-size: 0.9em;">Password</label>
+                <input type="password" id="password" name="password" class="form-control form-control-sm">
+            </div>
+            <button class="btn btn-success btn-sm w-100">Entrar</button>
+        </form>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

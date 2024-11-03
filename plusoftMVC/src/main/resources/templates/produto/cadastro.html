@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">Cadastro de Produto - DOWNTOWN MVC</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" style="background-color: #0000; font-family: 'Oldenburg', serif; border: 2px solid #000000;">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}" style="font-family: 'Oldenburg', serif;">DOWNTOWN</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/produto/cadastrar}" style="font-family: 'Oldenburg', serif;">Cadastrar Produto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente/pesquisar}" style="font-family: 'Oldenburg', serif;">Cadastrar Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/funcionario/cadastrar}" style="font-family: 'Oldenburg', serif;">Cadastrar Funcionário</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="bg-white text-dark text-center py-5" style="background-color: #e5bb9c; font-family: 'Oldenburg', serif;">
+    <div class="container">
+        <h1 class="display-4">Cadastro de Produto</h1>
+    </div>
+</div>
+
+
+<main class="container my-5">
+    <form th:action="@{/produto/cadastrar}" th:object="${produto}" method="post">
+
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+
+        <div class="mb-3"><label class="form-label">Nome do Produto</label><input type="text" th:field="*{nomeProduto}"
+                                                                                  class="form-control"
+                                                                                  placeholder="Digite o nome do produto"
+                                                                                  required></div>
+        <div class="mb-3"><label class="form-label">Categoria do Produto</label><select th:field="*{categoriaProduto}"
+                                                                                        class="form-control" required>
+            <option value="">Escolha uma categoria...</option>
+            <option th:each="categoria:${categoriaProduto}" th:value="${categoria}"
+                    th:text="${categoria.label}"></option>
+        </select></div>
+        <div class="mb-3"><label class="form-label">Tamanho do Produto</label><select th:field="*{tamanhoProduto}"
+                                                                                      class="form-control" required>
+            <option value="">Escolha um tamanho...</option>
+            <option th:each="tamanho:${tamanhoProduto}" th:value="${tamanho}" th:text="${tamanho.label}"></option>
+        </select></div>
+        <div class="mb-3"><label class="form-label">Preço</label><input type="number" th:field="*{preco}"
+                                                                        class="form-control"
+                                                                        placeholder="Digite o preço do produto"
+                                                                        step="0.01" min="0" required></div>
+        <div class="mb-3"><label class="form-label">Descrição do Produto</label><textarea class="form-control"
+                                                                                          th:field="*{descricao}"
+                                                                                          rows="3"
+                                                                                          placeholder="Digite a descrição do produto"
+                                                                                          required></textarea></div>
+        <button type="submit" class="btn"
+                style="background-color: #000000; font-family: 'Bodoni Seventy Two Bold', serif; color: white;">
+            Cadastrar Produto
+        </button>
+    </form>
+</main>
+
+
+<footer class="text-black text-center py-3" style="background-color: #0000; font-family: 'Oldenburg', serif; border: 2px solid #000000;">
+    <p class="mb-0">DOWNTOWN MVC &copy; 2024 - Projeto FIAP</p>
+</footer>
+
+</body>
+</html>

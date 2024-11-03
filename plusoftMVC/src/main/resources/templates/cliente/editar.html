@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" style="background-color: #0000; font-family: 'Oldenburg', serif; border: 2px solid #000000;">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}" style="font-family: 'Bodoni Seventy Two Bold', serif;">DOWNTOWN</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente/cadastar}" style="font-family: 'Bodoni Seventy Two Bold', serif;">Cadastrar Cliente</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente/listar}" style="font-family: 'Bodoni Seventy Two Bold', serif;">Listagem de Clientes</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1>Editar Cliente</h1>
+    <form th:action="@{/cliente/editar}" th:object="${cliente}" method="post">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" th:field="*{nome}" class="form-control" placeholder="Digite o nome do cliente" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Sobrenome</label>
+            <input type="text" th:field="*{sobrenome}" class="form-control" placeholder="Digite o sobrenome" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" th:field="*{email}" class="form-control" placeholder="Digite o email" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">CPF</label>
+            <input type="text" th:field="*{cpf}" class="form-control" placeholder="Digite o CPF" maxlength="11" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Data de Nascimento</label>
+            <input type="date" th:field="*{dataNascimento}" class="form-control" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">RG</label>
+            <input type="text" th:field="*{rg}" class="form-control" placeholder="Digite o RG" maxlength="9" required>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">DDD do Telefone</label>
+            <input type="text" th:field="*{telefone.ddd}" class="form-control" placeholder="Digite o DDD" maxlength="2" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Número do Telefone</label>
+            <input type="text" th:field="*{telefone.numeroTelefone}" class="form-control" placeholder="Digite o número do telefone" maxlength="11" required>
+        </div>
+
+        <button type="submit" style="background-color: #000000; font-family: 'Bodoni Seventy Two Bold', serif; color: white;">Salvar</button>
+    </form>
+</div>
+
+</body>
+</html>

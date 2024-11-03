@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">DOWNTOWN MVC</title>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" style="background-color: #0000; font-family: 'Oldenburg', serif; border: 2px solid #000000;">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}" style="font-family: 'Oldenburg', serif;">DOWNTOWN</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/produto/cadastrar}" style="font-family: 'Oldenburg', serif;">Cadastrar Produto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/cliente/cadastar}" style="font-family: 'Oldenburg', serif;">Cadastrar Cliente</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" th:href="@{/funcionario/register}" style="font-family: 'Oldenburg', serif;">Cadastrar Funcionário</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-link nav-link">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="bg-white text-dark text-center py-5" style="background-color: #e5bb9c; font-family: 'Oldenburg', serif;">
+    <div class="container">
+        <h1 class="display-4">DOWNTOWN MVC</h1>
+    </div>
+</div>
+
+
+<main class="container my-5">
+    <div class="text-center">
+        <p class="lead">
+            Este é um projeto de MVC de cadastro de produtos desenvolvido pelo grupo <strong>Jarvis</strong> para o <strong>para loja Downtown</strong>
+        </p>
+    </div>
+
+    <div class="text-center my-5">
+        <p>
+            <a th:href="@{/produto/listar}" class="btn btn-outline-dark mx-2" style="font-family: 'Oldenburg', serif;">Listar Produtos</a>
+            <a th:href="@{/funcionario/listar}" sec:authorize="hasRole('ADMIN')" class="btn btn-outline-dark mx-2" style="font-family: 'Oldenburg', serif;">Lista Funcionários</a>
+            <a th:href="@{/cliente/listar}" class="btn btn-outline-dark mx-2" style="font-family: 'Oldenburg', serif;">Listar Clientes</a>
+        </p>
+    </div>
+
+    <div class="text-center my-5">
+        <h2>Lista de Integrantes</h2>
+    </div>
+
+    <ul class="list-group list-group-flush mx-auto" style="max-width: 600px;">
+        <li class="list-group-item">Raphael Pabst  rm98525</li>
+        <li class="list-group-item">Silvio Junior rm550821</li>
+        <li class="list-group-item">Pedro Braga  rm551061</li>
+        <li class="list-group-item">Eduardo Reis Braga rm551987</li>
+        <li class="list-group-item">Vinícius Martins Torres Abdala rm99455</li>
+    </ul>
+
+    <div class="text-center my-5">
+        <h3>Professor: Thiago Toshiyuki Izumi Yamamoto</h3>
+    </div>
+</main>
+
+
+<footer class="text-black text-center py-3" style="background-color: #4F4F4Fc; font-family: 'Oldenburg', serif;">
+    <p class="mb-0">DOWNTOWN MVC &copy; 2024 - Projeto FIAP</p>
+</footer>
+
+</body>
+</html>

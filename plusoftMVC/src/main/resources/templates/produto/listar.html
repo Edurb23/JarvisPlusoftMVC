@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <title>Listar Produtos</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: #0000; font-family: 'Oldenburg', serif; border: 2px solid #000000;">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home}" style="font-family: 'Oldenburg', serif;">DOWNTOWN</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/produto/cadastrar}" style="font-family: 'Oldenburg', serif;">Cadastrar Produto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/cliente/pesquisar}" style="font-family: 'Oldenburg', serif;">Cadastrar Cliente</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/funcionario/cadastrar}" style="font-family: 'Oldenburg', serif;">Cadastrar Funcionário</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div layout:fragment="conteudo" class="container mt-5">
+  <h1 style="font-family: 'Bodoni Seventy Two Bold', serif;">Lista de Produtos Cadastrados</h1>
+
+  <div class="alert alert-success"
+       th:if="!${#strings.isEmpty(mensagem)}" th:text="${mensagem}">
+  </div>
+
+  <table class="table table-striped table-hover table-bordered align-middle">
+    <thead class="table-dark">
+    <tr class="text-center" style="background-color: #000000; font-family: 'Bodoni Seventy Two Bold', serif;">
+      <th style="background-color: #696969;">Nome do Produto</th>
+      <th style="background-color: #696969;">Descrição</th>
+      <th style="background-color: #696969;">Categoria</th>
+      <th style="background-color: #696969;">Tamanho</th>
+      <th style="background-color: #696969;">Preço</th>
+      <th style="background-color: #696969;"></th>
+      <th style="background-color: #696969;"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="produto : ${produtoPage.content}">
+      <td class="fw-bold" th:text="${produto.nomeProduto}"></td>
+      <td class="text-muted" th:text="${produto.descricao}"></td>
+      <td th:text="${produto.categoriaProduto}"></td>
+      <td th:text="${produto.tamanhoProduto}"></td>
+      <td th:text="${produto.preco}"></td>
+      <td>
+        <a th:href="@{/produto/editar/}+${produto.id}"
+           class="btn btn-outline" style="background-color: #000000; font-family: 'Bodoni Seventy Two Bold', serif; color: white;">Editar</a>
+      </td>
+      <td>
+        <button th:onclick="|produtoId.value = ${produto.id}|" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+          Remover
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <nav th:if="${produtoPage.totalPages > 1}">
+    <ul class="pagination justify-content-center">
+      <li th:each="i : ${#numbers.sequence(0, produtoPage.totalPages - 1)}"
+          th:classappend="${i == produtoPage.number} ? 'active'" style="background-color: #49322f; font-family: 'Bodoni Seventy Two Bold', serif; color: white;">
+        <a class="page-link" th:href="@{/produto/listar(page=${i})}"
+           th:text="${i + 1}"></a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmDeleteModalLabel">Confirmação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Deseja realmente excluir o produto?
+        </div>
+        <div class="modal-footer">
+          <form th:action="@{/produto/remover}" method="post">
+            <input type="hidden" name="id" id="produtoId"/>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+            <button type="submit" class="btn btn-danger">Sim</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
